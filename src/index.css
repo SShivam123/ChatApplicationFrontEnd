@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@theme {
+  --animate-*: initial; 
+}
+@variant dark (&:where(.dark, .dark *));
+
+.para::-webkit-scrollbar{
+    display: none;
+}
+
+.main::-webkit-scrollbar{
+    display: none;
+}
+
+.scrolll::-webkit-scrollbar{
+    display:none;
+}
+
+.myRoom::-webkit-scrollbar{
+    display:none;
+}
+
+.myuser::-webkit-scrollbar{
+    display:none;
+}
