@@ -46,7 +46,7 @@ function ForgotPassword() {
     };
 
     return (
-        <div className="h-[calc(100vh-91px)] w-full flex justify-center items-center bg-gradient-to-br from-cyan-500 via-blue-500 via-purple-500 to-pink-500 px-4 py-8">
+        <div className="min-h-screen w-full flex justify-center items-center bg-gradient-to-br from-cyan-500 via-blue-500 via-purple-500 to-pink-500 px-4 py-8">
             {!isWarning ?
                 <div className="w-full max-w-md border border-white/20 rounded-3xl shadow-2xl backdrop-blur-lg bg-white/10 p-4 sm:p-8">
                     <div className="flex justify-center mb-3">
