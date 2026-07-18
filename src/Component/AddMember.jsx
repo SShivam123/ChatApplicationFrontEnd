@@ -77,7 +77,7 @@ const AddMember = () => {
 
         try {
             setloading(true)
-            let response = await fetch("http://localhost:8080/add-member", {
+            let response = await fetch(`${API_URL}/add-member`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
