@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 const Warning = ({setisWarning}) => {
     const navigate = useNavigate();
     return (
-        <div className="h-[calc(100vh-91px)] flex justify-center items-center">
+        <div className="min-h-screen flex justify-center items-center">
 
             <div className="w-full max-w-lg bg-[#1b202b] border border-gray-600 rounded-2xl shadow-3xl p-4">
 
