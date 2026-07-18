@@ -38,12 +38,12 @@ export function base64ToBuffer(base64) {
 
 // Apni private key se AES key recover karo
 export async function decryptAESKey(encryptedKeyB64, privateKey) {
-  console.log("=== decryptAESKey debug ===");
-    console.log("encryptedKeyB64:", encryptedKeyB64);
-    console.log("encryptedKeyB64 type:", typeof encryptedKeyB64);
-    console.log("privateKey:", privateKey);
-    console.log("privateKey type:", privateKey?.type);
-    console.log("privateKey algorithm:", privateKey?.algorithm);
+  // console.log("=== decryptAESKey debug ===");
+    // console.log("encryptedKeyB64:", encryptedKeyB64);
+    // console.log("encryptedKeyB64 type:", typeof encryptedKeyB64);
+    // console.log("privateKey:", privateKey);
+    // console.log("privateKey type:", privateKey?.type);
+    // console.log("privateKey algorithm:", privateKey?.algorithm);
   const buffer = Uint8Array.from(atob(encryptedKeyB64), c => c.charCodeAt(0));
   const rawKey = await window.crypto.subtle.decrypt({ name: "RSA-OAEP" }, privateKey, buffer);
   console.log(rawKey);

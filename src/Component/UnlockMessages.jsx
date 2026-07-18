@@ -6,7 +6,7 @@ const UnlockMessages = ({handleUnlockChat,password,setPassword}) => {
 
  
   return (
-    <div className="min-h-[calc(100vh-68px)] bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex items-center justify-center px-4">
+    <div className="min-h-[calc(100vh-91px)] bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl">
 
         {/* Icon */}

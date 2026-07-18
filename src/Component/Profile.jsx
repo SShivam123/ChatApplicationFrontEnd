@@ -11,11 +11,12 @@ const Profile = () => {
     const [DeleteLoading, setDeleteLoading] = useState(false)
     const { setisLoggedIn, setuserData } = useContext(chatContext)
     const navigate = useNavigate()
+     const API_URL = import.meta.env.VITE_API_URL;
 
     const handleDelete = async () => {
         try {
             setDeleteLoading(true)
-            let response = await fetch("http://localhost:8080/deleteAccount/user", {
+            let response = await fetch(`${API_URL}/deleteAccount/user`, {
                 method: "DELETE",
                 credentials: "include"
             });
@@ -31,66 +32,89 @@ const Profile = () => {
             setDeleteLoading(false)
         }
     }
-    return (
-        <div className='flex h-[calc(100vh-70px)]'>
-            <div className='w-1/5 h-full bg-gradient-to-br from-slate-300  via-amber-400 border-b from-slate-300 '>
-                <div className='flex flex-col gap-4 p-4'>
-                    <NavLink end
-                        to=""
-                        className={({ isActive }) =>
-                            `px-5 py-2 rounded-full font-bold border border-black transition-all duration-300
-     hover:scale-105 active:scale-95 flex justify-between
-    ${isActive
-                                ? "bg-white text-black"
-                                : "text-black hover:bg-white hover:text-black"
-                            }`
-                        }
-                    >
-                        Personal-Detail
-                        <span><ChevronRight /></span>
-                    </NavLink>
-                    <NavLink
-                        to="my-room"
-                        className={({ isActive }) =>
-                            `px-5 py-2 rounded-full font-bold border border-black transition-all duration-300
-     hover:scale-105 active:scale-95  flex justify-between
-    ${isActive
-                                ? "bg-white text-black"
-                                : "text-black hover:bg-white hover:text-black"
-                            }`
-                        }
-                    >
-                        My-Rooms
-                        <span><ChevronRight /></span>
-                    </NavLink>
-                    <NavLink
-                        to="all-member"
-                        className={({ isActive }) =>
-                            `px-5 py-2 rounded-full font-bold border border-black transition-all duration-300
-     hover:scale-105 active:scale-95 flex justify-between
-    ${isActive
-                                ? "bg-white text-black"
-                                : "text-black hover:bg-white hover:text-black"
-                            }`
-                        }
-                    >
-                        All-Members
-                        <span><ChevronRight /></span>
-                    </NavLink>
 
-                    <p className='px-5 py-2 rounded-full font-bold border border-black transition-all duration-300
-     hover:scale-105 active:scale-95 flex justify-between' onClick={() => setdeleteModelOpen(true)}>
-                        <span >Delete-Account</span>
-                        <span><ChevronRight /></span>
-                    </p>
-                </div>
+    return (
+    <div className="flex flex-col lg:flex-row h-[calc(100vh-90px)]">
+
+        {/* Sidebar */}
+
+        <div className="w-full lg:w-1/5 bg-gradient-to-br from-slate-300 via-amber-400">
+
+            <div className="flex lg:flex-col gap-3 p-4 overflow-x-auto lg:overflow-visible">
+
+                <NavLink
+                    end
+                    to=""
+                    className={({ isActive }) =>
+                        `min-w-fit lg:w-full px-5 py-3 rounded-full font-bold border border-black transition-all duration-300 hover:scale-105 active:scale-95 flex justify-between items-center
+                        ${isActive
+                            ? "bg-white text-black"
+                            : "text-black hover:bg-white hover:text-black"}`
+                    }
+                >
+                    <span>Personal Detail</span>
+                    <ChevronRight className="hidden lg:block" />
+                </NavLink>
+
+                <NavLink
+                    to="my-room"
+                    className={({ isActive }) =>
+                        `min-w-fit lg:w-full px-5 py-3 rounded-full font-bold border border-black transition-all duration-300 hover:scale-105 active:scale-95 flex justify-between items-center
+                        ${isActive
+                            ? "bg-white text-black"
+                            : "text-black hover:bg-white hover:text-black"}`
+                    }
+                >
+                    <span>My Rooms</span>
+                    <ChevronRight className="hidden lg:block" />
+                </NavLink>
+
+                <NavLink
+                    to="all-member"
+                    className={({ isActive }) =>
+                        `min-w-fit lg:w-full px-5 py-3 rounded-full font-bold border border-black transition-all duration-300 hover:scale-105 active:scale-95 flex justify-between items-center
+                        ${isActive
+                            ? "bg-white text-black"
+                            : "text-black hover:bg-white hover:text-black"}`
+                    }
+                >
+                    <span>All Members</span>
+                    <ChevronRight className="hidden lg:block" />
+                </NavLink>
+
+                <p
+                    onClick={() => setdeleteModelOpen(true)}
+                    className="min-w-fit lg:w-full px-5 py-3 rounded-full font-bold border border-black transition-all duration-300 hover:scale-105 active:scale-95 flex justify-between items-center cursor-pointer hover:bg-white"
+                >
+                    <span>Delete Account</span>
+                    <ChevronRight className="hidden lg:block" />
+                </p>
+
             </div>
-            <div className='w-4/5 h-full bg-gray-200'>
-                <Outlet />
-            </div>
-            {deleteModelOpen && <LogOut mainText={"Delete-Account"} descText={"Are you sure you want to delete-Account?"} cancelText={"Cancel"} confirmText={"Delete-Account"} isOpen={deleteModelOpen} setisOpen={setdeleteModelOpen} logOutHandleAndDelete={handleDelete} loading={DeleteLoading} />}
+
         </div>
-    )
+
+        {/* Content */}
+
+        <div className="flex-1 bg-gray-200 overflow-auto">
+            <Outlet />
+        </div>
+
+        {deleteModelOpen && (
+            <LogOut
+                mainText={"Delete-Account"}
+                descText={"Are you sure you want to delete-Account?"}
+                cancelText={"Cancel"}
+                confirmText={"Delete-Account"}
+                isOpen={deleteModelOpen}
+                setisOpen={setdeleteModelOpen}
+                logOutHandleAndDelete={handleDelete}
+                loading={DeleteLoading}
+            />
+        )}
+
+    </div>
+);
 }
 
 export default Profile

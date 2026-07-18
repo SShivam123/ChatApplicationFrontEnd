@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, MoveLeftIcon } from "lucide-react";
 import toast from "react-hot-toast";
 import { chatContext } from "../Context/ContextProvider";
 import { encryptPrivateKey } from "../Crypto/E2ee";
+import { useNavigate } from "react-router";
 
-function ChangePassword() {
+function ChangePassword({setisView}) {
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -13,10 +14,10 @@ function ChangePassword() {
     const [showConfirm, setShowConfirm] = useState(false);
     const [error, seterror] = useState(null)
     const {decryptPrivateKeyFnc,pvtKeyResponse,privateKey} = useContext(chatContext)
+    const navigate = useNavigate();
+     const API_URL = import.meta.env.VITE_API_URL;
 
     const handleSubmit = async () => {
-        
-
         let errors = {};
         if (!oldPassword || oldPassword.trim() == "") {
             errors.oldPassword = "Old password is required"
@@ -81,7 +82,7 @@ function ChangePassword() {
         }
 
         try {
-            let response = await fetch("http://localhost:8080/changePasword", {
+            let response = await fetch(`${API_URL}/changePasword`, {
                 method: "PUT",
                 credentials: "include",
                 headers: {
@@ -110,12 +111,14 @@ function ChangePassword() {
     };
 
     return (
-        <div className="h-[calc(100vh-70px)] bg-[#0c121f] flex justify-center items-center p-4">
+        // <div className="h-[calc(100vh-70px)] bg-[#0c121f] flex justify-center items-center p-4">
             <div className="w-full max-w-md bg-[#303744] rounded-3xl shadow-2xl border border-gray-800 p-6">
-
+                <div className="relative">
+                    <MoveLeftIcon color="white" size={30} onClick={()=>setisView("details")} className="cursor-pointer absolute"/>
                 <h1 className="text-3xl font-bold text-center text-white mb-8">
                     Change Password
                 </h1>
+                </div>
 
                 <div className="space-y-5">
 
@@ -213,7 +216,7 @@ function ChangePassword() {
 
                 </div>
             </div>
-        </div>
+        // </div>
     );
 }
 

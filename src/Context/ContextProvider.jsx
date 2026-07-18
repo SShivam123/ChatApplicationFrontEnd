@@ -13,11 +13,14 @@ const ContextProvider = ({ children }) => {
   const [isLoggedIn, setisLoggedIn] = useState(false)
   const [privateKey, setPrivateKey] = useState(null)
   const [pvtKeyResponse, setPvtKeyResponse] = useState(null)
+  const [loadingProfile, setloadingProfile] = useState(false)
   const navigate = useNavigate()
+   const API_URL = import.meta.env.VITE_API_URL;
 
   const getProfile = async () => {
     try {
-      let response = await fetch("http://localhost:8080/profile", {
+      setloadingProfile(true)
+      let response = await fetch(`${API_URL}/profile`, {
         credentials: "include"
       })
       if (response.status == 200) {
@@ -27,17 +30,22 @@ const ContextProvider = ({ children }) => {
       } else {
         console.log("Some error occured login again");
         setisLoggedIn(false)
-        navigate("/login")
+        //   if (!window.location.pathname.includes('/reset-password')) {
+        //   navigate("/login")
+        //   console.log("Some Error Occured Please Login Again")
+        // }
         setuserData(null)
       }
     } catch (error) {
       console.log("please login then try");
+    } finally {
+      setloadingProfile(false)
     }
   }
 
   const getRoooms = async () => {
     try {
-      let response = await fetch("http://localhost:8080/api/v1/getRoom", {
+      let response = await fetch(`${API_URL}/api/v1/getRoom`, {
         credentials: "include"
       })
       let data = await response.json()
@@ -65,14 +73,14 @@ const ContextProvider = ({ children }) => {
 
   const fetchEncryptedPrivateKey = async () => {
     try {
-      let pvtKeyResponse = await fetch("http://localhost:8080/privateKey/user", {
+      let pvtKeyResponse = await fetch(`${API_URL}/privateKey/user`, {
         credentials: "include"
       })
       let PvtKeyResponse = await pvtKeyResponse.json();
       if (pvtKeyResponse.ok) {
         setPvtKeyResponse(PvtKeyResponse)
         return PvtKeyResponse;
-      }else{
+      } else {
         return null;
       }
     } catch (error) {
@@ -83,7 +91,7 @@ const ContextProvider = ({ children }) => {
   const decryptPrivateKeyFnc = async (PvtKeyResponse, password) => {
     console.log(PvtKeyResponse);
 
-    console.log(PvtKeyResponse.privateKey);
+    // console.log(PvtKeyResponse.privateKey);
 
     try {
       let decryptPvtKey = await decryptPrivateKey(PvtKeyResponse.privateKey, PvtKeyResponse.iv, PvtKeyResponse.salt, password);
@@ -95,7 +103,7 @@ const ContextProvider = ({ children }) => {
   }
 
   return (
-    <chatContext.Provider value={{ roomData, setroomData, currentUser, setcurrentUser, connected, setconnected, userData, setuserData, getProfile, getRoooms, AllRoom, setisLoggedIn, isLoggedIn, fetchEncryptedPrivateKey, decryptPrivateKeyFnc, privateKey, setPrivateKey, pvtKeyResponse, setPvtKeyResponse }}>
+    <chatContext.Provider value={{ roomData, setroomData, currentUser, setcurrentUser, connected, setconnected, userData, setuserData, getProfile, getRoooms, AllRoom, setisLoggedIn, isLoggedIn, fetchEncryptedPrivateKey, decryptPrivateKeyFnc, privateKey, setPrivateKey, pvtKeyResponse, setPvtKeyResponse, loadingProfile }}>
       {children}
     </chatContext.Provider>
   )

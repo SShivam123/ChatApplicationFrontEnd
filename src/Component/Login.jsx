@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { ClipLoader } from "react-spinners";
 import { chatContext } from "../Context/ContextProvider";
+import { MoveLeft } from "lucide-react";
 
 const Login = () => {
   const navigate = useNavigate()
@@ -11,6 +12,7 @@ const Login = () => {
   const [errors, seterrors] = useState(null)
   const [loading, setloading] = useState(false)
   const { getProfile, setisLoggedIn, fetchEncryptedPrivateKey, decryptPrivateKeyFnc, privateKey, setPrivateKey, pvtKeyResponse } = useContext(chatContext)
+   const API_URL = import.meta.env.VITE_API_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,7 +36,7 @@ const Login = () => {
 
     try {
       setloading(true)
-      let response = await fetch("http://localhost:8080/login", {
+      let response = await fetch(`${API_URL}/login`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -52,8 +54,8 @@ const Login = () => {
         toast.success("User login successfully")
         await getProfile()
         let data = await fetchEncryptedPrivateKey()
-        if(data){
-          await decryptPrivateKeyFnc(data,password)
+        if (data) {
+          await decryptPrivateKeyFnc(data, password)
         }
         console.log(data);
       } else {
@@ -69,51 +71,89 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center bg-gradient-to-br from-cyan-500 via-blue-500 via-purple-500 to-pink-500">
+    <div className="min-h-screen w-full flex justify-center items-center bg-gradient-to-br from-cyan-500 via-blue-500 via-purple-500 to-pink-500 px-4 py-8">
       <form
         onSubmit={handleSubmit}
-        className="backdrop-blur-md bg-white/20 border border-white/30 shadow-2xl rounded-2xl p-8 w-[400px]"
+        className="backdrop-blur-md bg-white/20 border border-white/30 shadow-2xl rounded-2xl
+      w-full max-w-[400px] p-6 sm:p-8"
       >
-        <h1 className="text-3xl font-bold text-center text-white mb-6">
-          Login form
+        <div className="flex 2px hover:text-blue-400 cursor-pointer" onClick={() => navigate("/home")} >
+          <MoveLeft color="white"  size={25} />
+            <h1 className="text-white">Go To Home</h1>
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-bold text-center text-white mb-6">
+          Login Form
         </h1>
 
+        {/* Email */}
+
         <div className="flex flex-col gap-2 mb-4">
-          <label className="text-white font-semibold">Email:-</label>
+          <label className="text-white font-semibold">
+            Email
+          </label>
+
           <input
             type="email"
             name="email"
             placeholder="Enter Email"
             value={email}
             onChange={(e) => setemail(e.target.value)}
-            className="p-3 rounded-lg bg-white/70 outline-none focus:ring-2 focus:ring-cyan-400"
+            className="w-full p-3 rounded-lg bg-white/70 outline-none focus:ring-2 focus:ring-cyan-400"
           />
-          {errors && <p className="text-red-500">{errors.email}</p>}
+
+          {errors?.email && (
+            <p className="text-red-300 text-sm">
+              {errors.email}
+            </p>
+          )}
         </div>
 
+        {/* Password */}
+
         <div className="flex flex-col gap-2 mb-6">
-          <label className="text-white font-semibold">Password:-</label>
+
+          <label className="text-white font-semibold">
+            Password
+          </label>
+
           <input
             type="password"
             name="password"
             placeholder="Enter Password"
             value={password}
             onChange={(e) => setpassword(e.target.value)}
-            className="p-3 rounded-lg bg-white/70 outline-none focus:ring-2 focus:ring-cyan-400"
+            className="w-full p-3 rounded-lg bg-white/70 outline-none focus:ring-2 focus:ring-cyan-400"
           />
-          {errors && <p className="text-red-500">{errors.password}</p>}
+
+          <Link
+            to="/forgotPassword"
+            className="text-white text-sm hover:underline w-fit"
+          >
+            Forgot Password?
+          </Link>
+
+          {errors?.password && (
+            <p className="text-red-300 text-sm">
+              {errors.password}
+            </p>
+          )}
+
         </div>
 
         <button
           type="submit"
-          className="w-full p-3 rounded-lg font-bold text-white bg-gradient-to-r from-cyan-500 to-purple-500 hover:scale-105 transition-all duration-300 hover:shadow-xl cursor-pointer" disabled={loading}
+          disabled={loading}
+          className="w-full p-3 rounded-lg font-bold text-white bg-gradient-to-r from-cyan-500 to-purple-500 hover:scale-105 transition-all duration-300 hover:shadow-xl cursor-pointer"
         >
-          {loading ? <ClipLoader /> : "Login"}
+          {loading ? <ClipLoader color="white" size={22} /> : "Login"}
         </button>
 
-        <p className="text-center text-white mt-4">
+        <p className="text-center text-white mt-5 text-sm sm:text-base">
           Don't have an account?{" "}
-          <span className="font-bold cursor-pointer hover:underline" onClick={() => navigate("/register")}>
+          <span
+            className="font-bold cursor-pointer hover:underline"
+            onClick={() => navigate("/register")}
+          >
             Register
           </span>
         </p>
