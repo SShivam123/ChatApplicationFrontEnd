@@ -450,7 +450,7 @@ const ChatBox = () => {
                                     <div
                                         className={`
                                 w-fit
-                                max-w-full
+                                max-w-md
                                 rounded-2xl
                                 px-4
                                 py-3
