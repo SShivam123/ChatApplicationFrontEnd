@@ -13,7 +13,7 @@ import { decryptAESKey, decryptMessage, encryptAESKeyForMember, encryptMessage, 
 
 const ChatBox = () => {
     const chatBoxRef = useRef()
-    const [previewImage, setPreviewImage] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
     const [message, setmessage] = useState([])
     const [Input, setInput] = useState("")
     const [StampClient, setStampClient] = useState(null)
