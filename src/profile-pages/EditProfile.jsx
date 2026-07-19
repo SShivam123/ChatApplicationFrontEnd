@@ -5,13 +5,13 @@ import { chatContext } from "../Context/ContextProvider";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 
-function EditProfile({setisView}) {
+function EditProfile({ setisView }) {
     const navigate = useNavigate()
     const [loading, setloading] = useState(false)
     const { userData, setuserData } = useContext(chatContext);
     const [ProfileImage, setProfileImage] = useState(null)
     const [name, setName] = useState("");
-     const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         if (userData) {
@@ -68,28 +68,103 @@ function EditProfile({setisView}) {
         }
     };
 
+    // return (
+    //     // <div className="h-[calc(100vh-70px)] bg-[#0c121f] flex justify-center items-center p-4">
+    //         <div className="w-100 bg-[rgb(48,55,68)] rounded-3xl shadow-2xl border border-gray-800 p-5">
+    //             <div className="relative">
+    //                 <MoveLeftIcon color="white" size={30} onClick={()=> setisView("details") } className="cursor-pointer absolute left-5 "/>
+    //                 <h1 className="text-3xl font-bold text-center text-white mb-5">
+    //                     Edit Profile
+    //                 </h1>
+    //             </div>
+    //             <div className="flex flex-col items-center">
+    //                 <div className="relative">
+    //                     <img
+    //                         src={image}
+    //                         alt=""
+    //                         className="w-30 h-30 rounded-full object-cover border-4 border-cyan-500"
+    //                     />
+    //                     <label
+    //                         htmlFor="profile"
+    //                         className="absolute bottom-2 right-2 bg-cyan-500 p-2 rounded-full cursor-pointer hover:scale-110 transition-all"
+    //                     >
+    //                         <Camera size={18} color="white" />
+    //                     </label>
+    //                     <input
+    //                         type="file"
+    //                         id="profile"
+    //                         hidden
+    //                         accept="image/*"
+    //                         onChange={handleImageChange}
+    //                     />
+    //                 </div>
+    //                 <p className="text-gray-400 text-sm mt-3">
+    //                     Change Profile Picture
+    //                 </p>
+    //             </div>
+    //             <div className="mt-8 space-y-5">
+    //                 <div>
+    //                     <label className="block text-gray-300 mb-2">
+    //                         Full Name
+    //                     </label>
+    //                     <input
+    //                         type="text"
+    //                         value={name}
+    //                         onChange={(e) => setName(e.target.value)}
+    //                         className="w-full bg-[#0e131f] border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-cyan-500"
+    //                     />
+    //                 </div>
+    //                 <button
+    //                     onClick={handleSubmit}
+    //                     className="w-full mt-4 bg-gradient-to-r from-cyan-500 to-blue-600 py-3 rounded-xl font-semibold text-white hover:scale-[1.02] transition-all duration-300 shadow-lg cursor-pointer" disabled={loading}
+    //                 // onClick={() => navigate("profile/personal-detail")}
+    //                 >
+    //                     {loading ? <ClipLoader /> : "Save Changes"}
+    //                 </button>
+    //             </div>
+    //         </div>
+    //     // </div>
+    // );
+
     return (
-        // <div className="h-[calc(100vh-70px)] bg-[#0c121f] flex justify-center items-center p-4">
-            <div className="w-100 bg-[rgb(48,55,68)] rounded-3xl shadow-2xl border border-gray-800 p-5">
-                <div className="relative">
-                    <MoveLeftIcon color="white" size={30} onClick={()=> setisView("details") } className="cursor-pointer absolute left-5 "/>
-                    <h1 className="text-3xl font-bold text-center text-white mb-5">
+        // <div className="min-h-[calc(100vh-91px)] flex justify-center items-center px-4 py-6 bg-gradient-to-br from-black via-gray-900 to-amber-900">
+
+            <div className="w-full max-w-md bg-[rgb(48,55,68)] rounded-3xl shadow-2xl border border-gray-800 p-5 sm:p-6">
+
+                {/* Header */}
+                <div className="relative flex items-center justify-center mb-6">
+
+                    <MoveLeftIcon
+                        color="white"
+                        size={28}
+                        onClick={() => setisView("details")}
+                        className="absolute left-0 cursor-pointer hover:scale-110 transition"
+                    />
+
+                    <h1 className="text-2xl sm:text-3xl font-bold text-white text-center">
                         Edit Profile
                     </h1>
+
                 </div>
+
+                {/* Profile Image */}
                 <div className="flex flex-col items-center">
+
                     <div className="relative">
+
                         <img
                             src={image}
                             alt=""
-                            className="w-30 h-30 rounded-full object-cover border-4 border-cyan-500"
+                            className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-cyan-500"
                         />
+
                         <label
                             htmlFor="profile"
-                            className="absolute bottom-2 right-2 bg-cyan-500 p-2 rounded-full cursor-pointer hover:scale-110 transition-all"
+                            className="absolute bottom-1 right-1 bg-cyan-500 p-2 rounded-full cursor-pointer hover:scale-110 transition"
                         >
                             <Camera size={18} color="white" />
                         </label>
+
                         <input
                             type="file"
                             id="profile"
@@ -97,32 +172,45 @@ function EditProfile({setisView}) {
                             accept="image/*"
                             onChange={handleImageChange}
                         />
+
                     </div>
-                    <p className="text-gray-400 text-sm mt-3">
+
+                    <p className="text-gray-400 text-sm mt-3 text-center">
                         Change Profile Picture
                     </p>
+
                 </div>
+
+                {/* Form */}
                 <div className="mt-8 space-y-5">
+
                     <div>
-                        <label className="block text-gray-300 mb-2">
+
+                        <label className="block text-gray-300 mb-2 font-medium">
                             Full Name
                         </label>
+
                         <input
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="w-full bg-[#0e131f] border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-cyan-500"
+                            className="w-full bg-[#0e131f] border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-cyan-500 transition"
                         />
+
                     </div>
+
                     <button
                         onClick={handleSubmit}
-                        className="w-full mt-4 bg-gradient-to-r from-cyan-500 to-blue-600 py-3 rounded-xl font-semibold text-white hover:scale-[1.02] transition-all duration-300 shadow-lg cursor-pointer" disabled={loading}
-                    // onClick={() => navigate("profile/personal-detail")}
+                        disabled={loading}
+                        className="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:scale-[1.02] transition-all duration-300 shadow-lg cursor-pointer disabled:opacity-60"
                     >
-                        {loading ? <ClipLoader /> : "Save Changes"}
+                        {loading ? <ClipLoader color="white" size={22} /> : "Save Changes"}
                     </button>
+
                 </div>
+
             </div>
+
         // </div>
     );
 }

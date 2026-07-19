@@ -5,7 +5,7 @@ import { chatContext } from "../Context/ContextProvider";
 import { encryptPrivateKey } from "../Crypto/E2ee";
 import { useNavigate } from "react-router";
 
-function ChangePassword({setisView}) {
+function ChangePassword({ setisView }) {
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -13,9 +13,10 @@ function ChangePassword({setisView}) {
     const [showNew, setShowNew] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
     const [error, seterror] = useState(null)
-    const {decryptPrivateKeyFnc,pvtKeyResponse,privateKey} = useContext(chatContext)
+    const { decryptPrivateKeyFnc, pvtKeyResponse, privateKey } = useContext(chatContext)
     const navigate = useNavigate();
-     const API_URL = import.meta.env.VITE_API_URL;
+    const [loading, setloading] = useState(false)
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const handleSubmit = async () => {
         let errors = {};
@@ -60,22 +61,22 @@ function ChangePassword({setisView}) {
                 "pkcs8",
                 DecryptedPrivateKey
             );
-            let { encryptedPrivateKey, salt, iv } = await encryptPrivateKey(privateKeyBuffer,newPassword);
+            let { encryptedPrivateKey, salt, iv } = await encryptPrivateKey(privateKeyBuffer, newPassword);
             keyDetails.encryptedPrivateKey = encryptedPrivateKey;
             keyDetails.salt = salt;
             keyDetails.iv = iv;
         } else {
             console.log("Hello");
             console.log(typeof privateKey);
-            
+
             const privateKeyBuffer = await crypto.subtle.exportKey(
                 "pkcs8",
                 privateKey && privateKey
             );
-           
-            
-            let { encryptedPrivateKey, salt, iv } = await encryptPrivateKey(privateKeyBuffer,newPassword);
-            
+
+
+            let { encryptedPrivateKey, salt, iv } = await encryptPrivateKey(privateKeyBuffer, newPassword);
+
             keyDetails.encryptedPrivateKey = encryptedPrivateKey;
             keyDetails.salt = salt;
             keyDetails.iv = iv;
@@ -91,9 +92,9 @@ function ChangePassword({setisView}) {
                 body: JSON.stringify({
                     oldPassword,
                     newPassword,
-                    encryptedKey:keyDetails.encryptedPrivateKey,
-                    iv:keyDetails.iv,
-                    salt:keyDetails.salt
+                    encryptedKey: keyDetails.encryptedPrivateKey,
+                    iv: keyDetails.iv,
+                    salt: keyDetails.salt
                 })
             })
             if (response.status == 200) {
@@ -211,7 +212,7 @@ function ChangePassword({setisView}) {
                         onClick={handleSubmit}
                         className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 py-3 rounded-xl font-semibold text-white hover:scale-[1.02] transition-all duration-300 shadow-lg cursor-pointer"
                     >
-                        Save Changes
+                       {loading ? <ClipLoader size={22} color="white" /> : "Save Changes"}
                     </button>
 
                 </div>

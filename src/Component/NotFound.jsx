@@ -6,14 +6,14 @@ function NotFound() {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen bg-[#0c121f] flex items-center justify-center px-6">
+        <div className="min-h-screen bg-[#0c121f] flex items-center justify-center px-3">
 
             <div className="text-center max-w-lg">
 
                 {/* Icon */}
-                <div className="flex justify-center mb-8">
-                    <div className="w-28 h-28 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/30 shadow-lg">
-                        <SearchX size={60} className="text-cyan-400" />
+                <div className="flex justify-center mb-5">
+                    <div className="w-20 h-20 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/30 shadow-lg">
+                        <SearchX size={40} className="text-cyan-400" />
                     </div>
                 </div>
 
@@ -23,12 +23,12 @@ function NotFound() {
                 </h1>
 
                 {/* Heading */}
-                <h2 className="text-3xl font-bold text-white mt-4">
+                <h2 className="text-3xl font-bold text-white mt-3">
                     Page Not Found
                 </h2>
 
                 {/* Description */}
-                <p className="text-gray-400 mt-4 leading-7">
+                <p className="text-gray-400 mt-3 leading-7">
                     Oops! The page you're looking for doesn't exist,
                     has been moved, or the URL is incorrect.
                 </p>

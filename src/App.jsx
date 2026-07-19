@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Route, Routes } from 'react-router'
+import { Outlet, Route, Routes } from 'react-router'
 import JoinRoom from './Component/JoinRoom'
 import ChatBox from './Component/ChatBox'
 import { Toaster } from 'react-hot-toast'
@@ -21,32 +21,45 @@ import NotFound from './Component/NotFound'
 import Home from './Component/Home'
 import HomePage from './Component/HomePage'
 import Warning from './Component/Warning'
+import PublicRoute from './ProtectedRoute/PublicRoute'
+
+const NavBarRoute = () => {
+  return (<>
+    <Navbar />
+    <Outlet />
+  </>
+  );
+}
 
 const App = () => {
   const { connected, isLoggedIn } = useContext(chatContext)
   return (
     <div>
       <Toaster />
-      {!connected && isLoggedIn && <Navbar />}
+      {/* {!connected && isLoggedIn && <Navbar />} */}
       <Routes>
-        <Route element={<ProtectedRoute />}>    
-          <Route path='/chat' element={<ChatBox />} />
-          <Route path='/add-member' element={<AddMember />} />
-          <Route path='/profile' element={<Profile />}>
-            <Route index element={<PersonalDetail />} />
-            <Route path='all-member' element={<Allmembers />} />
-            <Route path='my-room' element={<MyRooms />} />
+        <Route element={<NavBarRoute />}>
+        <Route path='/' element={<HomePage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path='/chat' element={<ChatBox />} />
+            <Route path='/add-member' element={<AddMember />} />
+            <Route path='/profile' element={<Profile />}>
+              <Route index element={<PersonalDetail />} />
+              <Route path='all-member' element={<Allmembers />} />
+              <Route path='my-room' element={<MyRooms />} />
+            </Route>
           </Route>
         </Route>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        {/* <Route path='/navbar' element={<Navbar />} /> */}
-        <Route path='/forgotPassword' element={<ForgotPassword />} />
-        <Route path='/reset-password' element={<ResetPassword />} />
+        <Route element={<PublicRoute />}>
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          {/* <Route path='/navbar' element={<Navbar />} /> */}
+          <Route path='/forgotPassword' element={<ForgotPassword />} />
+          <Route path='/reset-password' element={<ResetPassword />} />
+          {/* <Route path='warning' element={<Warning />} /> */}
+        </Route>
         <Route path='*' element={<NotFound />} />
-        <Route path='/Home' element={<Home/>} />
-          <Route path='warning' element={<Warning />} />
+        <Route path='/Home' element={<Home />} />
       </Routes>
     </div>
   )

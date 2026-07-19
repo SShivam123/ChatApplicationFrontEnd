@@ -431,7 +431,6 @@ const ChatBox = () => {
 
                 {message.length > 0 &&
                     message.map((msg, idx) => {
-
                         const isMe = msg.senderUserId === userData?.userId;
 
                         return (
