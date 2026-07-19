@@ -38,8 +38,8 @@ const App = () => {
       <Toaster />
       {/* {!connected && isLoggedIn && <Navbar />} */}
       <Routes>
-        <Route element={<NavBarRoute />}>
         <Route path='/' element={<HomePage />} />
+        <Route element={<NavBarRoute />}>
           <Route element={<ProtectedRoute />}>
             <Route path='/chat' element={<ChatBox />} />
             <Route path='/add-member' element={<AddMember />} />
