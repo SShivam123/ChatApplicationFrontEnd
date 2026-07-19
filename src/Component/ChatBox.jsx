@@ -456,7 +456,7 @@ const ChatBox = () => {
             )}
             {/* Footer */}
             <footer className="fixed bottom-0 left-0 right-0 bg-[#0B0F19] border-t border-gray-600 px-4 py-3 z-40">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                     <input
                         hidden
                         ref={imageInputRef}
@@ -467,12 +467,12 @@ const ChatBox = () => {
                     {/* Attachment */}
                     <button
                         onClick={() => imageInputRef.current.click()}
-                        className="w-12 h-12 rounded-full  hover:bg-[#4a5468] flex justify-center items-center transition cursor-pointer flex-shrink-0"
+                        className="w-10 h-10 rounded-full  hover:bg-[#4a5468] flex justify-center items-center transition cursor-pointer flex-shrink-0"
                     >
                         <img
                             src={paper}
                             alt=""
-                            className="w-10 h-10 invert rounded-full"
+                            className="w-8 h-8 invert rounded-full"
                         />
                     </button>
                     {/* Input */}
