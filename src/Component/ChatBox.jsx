@@ -13,6 +13,7 @@ import { decryptAESKey, decryptMessage, encryptAESKeyForMember, encryptMessage, 
 
 const ChatBox = () => {
     const chatBoxRef = useRef()
+    const [previewImage, setPreviewImage] = useState(null);
     const [message, setmessage] = useState([])
     const [Input, setInput] = useState("")
     const [StampClient, setStampClient] = useState(null)
@@ -481,9 +482,10 @@ const ChatBox = () => {
 
                                                 <img
                                                     src={msg.imageUrl}
-                                                    className="rounded-xl max-h-80 w-full object-cover border border-gray-700"
+                                                    alt="Chat Image"
+                                                    onClick={() => setSelectedImage(msg.imageUrl)}
+                                                    className="rounded-xl max-h-80 w-full object-cover border border-gray-700 cursor-pointer hover:scale-[1.02] transition duration-300"
                                                 />
-
                                                 {msg.content && (
 
                                                     <p
@@ -569,6 +571,37 @@ const ChatBox = () => {
                     ))}
 
                 <div ref={chatBoxRef}></div>
+                <div ref={chatBoxRef}></div>
+
+                {selectedImage && (
+                    <div
+                        className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-sm flex justify-center items-center p-4"
+                        onClick={() => setSelectedImage(null)}
+                    >
+                        {/* Close Button */}
+                        <button
+                            onClick={() => setSelectedImage(null)}
+                            className="absolute top-5 right-5 text-white text-4xl font-bold hover:text-red-500 transition cursor-pointer"
+                        >
+                            ✕
+                        </button>
+
+                        {/* Image */}
+                        <img
+                            src={selectedImage}
+                            alt="Preview"
+                            onClick={(e) => e.stopPropagation()}
+                            className="
+                max-w-full
+                max-h-[90vh]
+                object-contain
+                rounded-2xl
+                shadow-2xl
+                select-none
+            "
+                        />
+                    </div>
+                )}
 
             </main>
             {/* Floating Image Preview */}
