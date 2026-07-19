@@ -313,7 +313,7 @@ const ChatBox = () => {
                 </button>
             </header>
 
-            <main className="absolute top-16 bottom-20 left-0 right-0 overflow-y-auto bg-[#0B0F19] px-4 py-6 space-y-5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]🫥">
+            {/* <main className="absolute top-16 bottom-20 left-0 right-0 overflow-y-auto bg-[#0B0F19] px-4 py-6 space-y-5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]🫥">
                 {message.length > 0 &&
                     message.map((msg, idx) => {
                         const isMe = msg.senderUserId === userData?.userId;
@@ -425,6 +425,151 @@ const ChatBox = () => {
                         </div>
                     ))}
                 <div ref={chatBoxRef}></div>
+            </main> */}
+            <main className="absolute top-16 bottom-20 left-0 right-0 overflow-y-auto bg-[#0B0F19] px-3 sm:px-5 py-5 space-y-5 overflow-x-hidden">
+
+                {message.length > 0 &&
+                    message.map((msg, idx) => {
+
+                        const isMe = msg.senderUserId === userData?.userId;
+
+                        return (
+
+                            <div
+                                key={idx}
+                                className={`w-full flex ${isMe ? "justify-end" : "justify-start"}`}
+                            >
+
+                                <div
+                                    className={`flex items-end gap-3 ${isMe ? "flex-row-reverse" : "flex-row"} max-w-[90%] sm:max-w-[75%]`}
+                                >
+
+                                    <img
+                                        src={
+                                            msg.senderImageUrl
+                                                ? msg.senderImageUrl
+                                                : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                                        }
+                                        className="w-10 h-10 rounded-full object-cover border border-gray-700 flex-shrink-0"
+                                    />
+
+                                    <div
+                                        className={`
+                                w-fit
+                                max-w-full
+                                rounded-2xl
+                                px-4
+                                py-3
+                                shadow-lg
+                                overflow-hidden
+                                ${isMe
+                                                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-br-md"
+                                                : "bg-[#161B2D] border border-gray-700 text-white rounded-bl-md"
+                                            }
+                            `}
+                                    >
+
+                                        {!isMe && (
+                                            <p className="text-indigo-400 font-semibold text-sm mb-2">
+                                                {msg.senderName}
+                                            </p>
+                                        )}
+
+                                        {msg.type === "IMAGE" ? (
+
+                                            <>
+
+                                                <img
+                                                    src={msg.imageUrl}
+                                                    className="rounded-xl max-h-80 w-full object-cover border border-gray-700"
+                                                />
+
+                                                {msg.content && (
+
+                                                    <p
+                                                        className="
+                                                mt-3
+                                                text-sm
+                                                leading-6
+                                                whitespace-pre-wrap
+                                                break-all
+                                                max-w-full
+                                            "
+                                                    >
+                                                        {msg.content}
+                                                    </p>
+
+                                                )}
+
+                                            </>
+
+                                        ) : (
+
+                                            <p
+                                                className="
+                                        text-sm
+                                        leading-6
+                                        whitespace-pre-wrap
+                                        break-all
+                                        max-w-full
+                                    "
+                                            >
+                                                {msg.content}
+                                            </p>
+
+                                        )}
+
+                                        <div className="flex justify-end mt-2">
+
+                                            <span className="text-[11px] text-gray-300">
+
+                                                {new Date(msg.sentAt).toLocaleTimeString(
+                                                    "en-IN",
+                                                    {
+                                                        hour: "2-digit",
+                                                        minute: "2-digit",
+                                                    }
+                                                )}
+
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        );
+
+                    })}
+
+                {typingUsers.length > 0 &&
+                    typingUsers.map((user) => (
+
+                        <div
+                            key={user.userId}
+                            className="flex justify-center"
+                        >
+
+                            <div className="bg-[#161B2D] border border-gray-700 rounded-full px-4 py-2 text-sm italic text-gray-300 flex items-center gap-2">
+
+                                {user.name} is typing
+
+                                <PulseLoader
+                                    size={6}
+                                    color="#6366F1"
+                                />
+
+                            </div>
+
+                        </div>
+
+                    ))}
+
+                <div ref={chatBoxRef}></div>
+
             </main>
             {/* Floating Image Preview */}
             {imageUrl && (
@@ -491,7 +636,7 @@ const ChatBox = () => {
                     {/* Send */}
                     <button
                         onClick={sendMessage}
-                        className="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:scale-105 transition flex justify-center items-center cursor-pointer flex-shrink-0"
+                        className="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:scale-105 transition flex justify-center items-center cursor-pointer flex-shrink-0"
                     >
                         <SendHorizontal
                             size={20}
