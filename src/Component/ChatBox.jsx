@@ -428,22 +428,17 @@ const ChatBox = () => {
                 <div ref={chatBoxRef}></div>
             </main> */}
             <main className="absolute top-16 bottom-20 left-0 right-0 overflow-y-auto bg-[#0B0F19] px-3 sm:px-5 py-5 space-y-5 overflow-x-hidden">
-
                 {message.length > 0 &&
                     message.map((msg, idx) => {
-                        const isMe = msg.senderUserId === userData?.userId;
-
+                        const isMe = msg.senderUserId === userData?.userId
                         return (
-
                             <div
                                 key={idx}
                                 className={`w-full flex ${isMe ? "justify-end" : "justify-start"}`}
                             >
-
                                 <div
                                     className={`flex items-end gap-3 ${isMe ? "flex-row-reverse" : "flex-row"} max-w-[90%] sm:max-w-[75%]`}
                                 >
-
                                     <img
                                         src={
                                             msg.senderImageUrl
@@ -452,7 +447,6 @@ const ChatBox = () => {
                                         }
                                         className="w-10 h-10 rounded-full object-cover border border-gray-700 flex-shrink-0"
                                     />
-
                                     <div
                                         className={`
                                 w-fit
@@ -462,13 +456,8 @@ const ChatBox = () => {
                                 py-3
                                 shadow-lg
                                 overflow-hidden
-                                ${isMe
-                                                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-br-md"
-                                                : "bg-[#161B2D] border border-gray-700 text-white rounded-bl-md"
-                                            }
-                            `}
+                                ${isMe? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-br-md": "bg-[#161B2D] border border-gray-700 text-white rounded-bl-md"}`}
                                     >
-
                                         {!isMe && (
                                             <p className="text-indigo-400 font-semibold text-sm mb-2">
                                                 {msg.senderName}
@@ -486,7 +475,6 @@ const ChatBox = () => {
                                                     className="rounded-xl max-h-80 w-full object-cover border border-gray-700 cursor-pointer hover:scale-[1.02] transition duration-300"
                                                 />
                                                 {msg.content && (
-
                                                     <p
                                                         className="
                                                 mt-3
@@ -499,7 +487,6 @@ const ChatBox = () => {
                                                     >
                                                         {msg.content}
                                                     </p>
-
                                                 )}
 
                                             </>
@@ -519,11 +506,8 @@ const ChatBox = () => {
                                             </p>
 
                                         )}
-
                                         <div className="flex justify-end mt-2">
-
                                             <span className="text-[11px] text-gray-300">
-
                                                 {new Date(msg.sentAt).toLocaleTimeString(
                                                     "en-IN",
                                                     {

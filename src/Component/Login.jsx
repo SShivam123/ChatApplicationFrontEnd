@@ -77,9 +77,9 @@ const Login = () => {
         className="backdrop-blur-md bg-white/20 border border-white/30 shadow-2xl rounded-2xl
       w-full max-w-[400px] p-6 sm:p-8"
       >
-        <div className="flex 2px hover:text-blue-400 cursor-pointer" onClick={() => navigate("/home")} >
-          <MoveLeft color="white"  size={25} />
-            <h1 className="text-white">Go To Home</h1>
+        <div className="flex 2px cursor-pointer" onClick={() => navigate("/home")} >
+          <MoveLeft color="white"  size={25}/>
+            <h1 className="text-white hover:text-black">Go To Home</h1>
         </div>
         <h1 className="text-2xl sm:text-3xl font-bold text-center text-white mb-6">
           Login Form

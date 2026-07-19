@@ -180,9 +180,9 @@ const Register = () => {
                     className="bg-white/25 backdrop-blur-lg border border-white/30 shadow-2xl rounded-2xl
                 w-full max-w-[420px] p-6 sm:p-8"
                 >
-                    <div className="flex 2px hover:text-blue-400 cursor-pointer" onClick={() => navigate("/home")} >
+                    <div className="flex 2px cursor-pointer" onClick={() => navigate("/home")} >
                         <MoveLeft color="white" size={25} />
-                        <h1 className="text-white">Go To Home</h1>
+                        <h1 className="text-white hover:text-black">Go To Home</h1>
                     </div>
                     <h1 className="text-2xl sm:text-3xl font-bold text-center text-white mb-6">
                         Register Form
